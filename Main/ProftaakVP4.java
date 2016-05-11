@@ -5,6 +5,8 @@
  */
 package Main;
 
+import Presentation.SysteemUI;
+
 /**
  *
  * @author Mathijs
@@ -15,7 +17,7 @@ public class ProftaakVP4 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        SysteemUI ui = new SysteemUI();
     }
     
 }
