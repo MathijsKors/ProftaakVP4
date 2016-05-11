@@ -1,14 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Presentation;
+
+import java.awt.Frame;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
- * @author Mathijs
+ * @author Mathijs, Dennis
  */
-public class SysteemUI {
+public class SysteemUI extends JFrame
+{
+    private JPanel navBarPanel, menuPanel, orderedItemPanel, billPanel;
     
+    public SysteemUI()
+    {
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setExtendedState(Frame.MAXIMIZED_BOTH);
+    }
 }
