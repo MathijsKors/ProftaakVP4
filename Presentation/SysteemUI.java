@@ -2,7 +2,6 @@ package Presentation;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Insets;
@@ -12,25 +11,32 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import Manager.UIManager;
 /**
  *
  * @author Mathijs, Dennis
  */
 public class SysteemUI extends JFrame
 {
-    private JPanel navBarPanel, orderedItemPanel, billPanel;
+    private JFrame frame;
+    private JPanel navBarPanel, orderedItemPanel, receiptPanel;
+    private ArrayList<JPanel> panelList;
     private JTabbedPane menuTabbedPane;
+    private UIManager manager;
     
     public SysteemUI()
     {
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setVisible(true);
+        frame = new JFrame();
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setVisible(true);
         
-        setLayout(new BorderLayout());
-        setTitle("De Hartige Hap");
+        frame.setLayout(new BorderLayout());
+        frame.setTitle("De Hartige Hap");
+        
+        panelList = new ArrayList<>();
         
         //Navigation bar with buttons
-        add(new NavBarPanel(), BorderLayout.NORTH);
+        frame.add(new NavBarPanel(), BorderLayout.NORTH);
         
         //Menu with categories
         menuTabbedPane = new JTabbedPane();
@@ -38,10 +44,16 @@ public class SysteemUI extends JFrame
         menuTabbedPane.add("HoofdGerechten", new MainCoursePanel());
         menuTabbedPane.add("Nagerechten", new DessertPanel());
         menuTabbedPane.add("Dranken", new DrinkPanel());
-        add(menuTabbedPane, BorderLayout.CENTER);
+        frame.add(menuTabbedPane, BorderLayout.CENTER);
         
-        pack();
-        setExtendedState(Frame.MAXIMIZED_BOTH);
+        //Menu with list of ordered items
+        orderedItemPanel = new JPanel();
+        panelList.add(orderedItemPanel);
+        add(orderedItemPanel, BorderLayout.CENTER);
+        orderedItemPanel.setVisible(false);
+        
+        frame.pack();
+        frame.setExtendedState(Frame.MAXIMIZED_BOTH);
     }
     
     class NavBarPanel extends JPanel
@@ -60,7 +72,7 @@ public class SysteemUI extends JFrame
         
         class NavButtonPanel extends JPanel
         {
-            private JButton menuButton, orderedItemButton, billButton;
+            private JButton menuButton, orderedItemButton, receiptButton;
             private ArrayList<JButton> navBarButtons;
             
             public NavButtonPanel()
@@ -69,11 +81,25 @@ public class SysteemUI extends JFrame
                 
                 //Menu buttons
                 menuButton = new JButton("Menu");
+                menuButton.addActionListener((ActionEvent e) -> {
+                    //Change active panel to the menu
+                    for(JPanel panel : panelList)
+                    {
+                        panel.setVisible(false);
+                    }
+                    menuTabbedPane.setVisible(true);
+                });
+                
                 orderedItemButton = new JButton("Bestelde Gerechten");
                 orderedItemButton.addActionListener((ActionEvent e) -> {
-                    
+                    changePanel(orderedItemPanel);
                 });
-                billButton = new JButton("Rekening");
+                
+                receiptButton = new JButton("Rekening");
+                receiptButton.addActionListener((ActionEvent e) -> {
+                   changePanel(receiptPanel);
+                });
+                
                 helpButton = new JButton("?");
                 
                 //Array with all navbar buttons for styling and adding to the panel
@@ -81,7 +107,7 @@ public class SysteemUI extends JFrame
                 
                 navBarButtons.add(menuButton);
                 navBarButtons.add(orderedItemButton);
-                navBarButtons.add(billButton);
+                navBarButtons.add(receiptButton);
                 
                 for(JButton button : navBarButtons)
                 {
@@ -122,5 +148,19 @@ public class SysteemUI extends JFrame
         {
             setBackground(Color.yellow);
         }
+    }
+    
+    public void changePanel(JPanel panel)
+    {
+        //Set every panel to invisible except the given panel;
+        for(JPanel panelInList : panelList)
+        {
+            if(panelInList != panel)
+            {
+                panelInList.setVisible(false);
+            }
+        }
+        menuTabbedPane.setVisible(false);
+        panel.setVisible(true);
     }
 }
