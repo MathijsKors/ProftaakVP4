@@ -1,6 +1,7 @@
 package Presentation;
 
 import Domain.Dish;
+import Domain.DishOrder;
 import Manager.DishManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -142,7 +143,7 @@ public class SysteemUI extends JFrame
             //Display every appetizer
             for(Dish dish : dishManager.findDishes("Appetizer"))
             {
-                add(createDishPanel(dish.getNameDish(), dish.getDescriptionDish(), dish.getpriceDish()));
+                add(createDishPanel(dish));
             }
         }
     }
@@ -154,7 +155,7 @@ public class SysteemUI extends JFrame
             //Display every main course
             for(Dish dish : dishManager.findDishes("MainCourse"))
             {
-                add(createDishPanel(dish.getNameDish(), dish.getDescriptionDish(), dish.getpriceDish()));
+                add(createDishPanel(dish));
             }
         }
     }
@@ -166,7 +167,7 @@ public class SysteemUI extends JFrame
             //Display every dessert
             for(Dish dish : dishManager.findDishes("Dessert"))
             {
-                add(createDishPanel(dish.getNameDish(), dish.getDescriptionDish(), dish.getpriceDish()));
+                add(createDishPanel(dish));
             }
         }
     }
@@ -178,7 +179,7 @@ public class SysteemUI extends JFrame
             //Display every drink
             for(Dish dish : dishManager.findDishes("Drink"))
             {
-                add(createDishPanel(dish.getNameDish(), dish.getDescriptionDish(), dish.getpriceDish()));
+                add(createDishPanel(dish));
             }
         }
     }
@@ -197,7 +198,7 @@ public class SysteemUI extends JFrame
         panel.setVisible(true);
     }
     
-    public JPanel createDishPanel(String nameDish, String descriptionDish, double priceDish)
+    public JPanel createDishPanel(Dish dish)
     {
         JPanel dishPanel = new JPanel();
         ArrayList<JLabel> labels = new ArrayList<>();
@@ -211,9 +212,9 @@ public class SysteemUI extends JFrame
         descriptionPanel.setLayout(new BoxLayout(descriptionPanel, BoxLayout.Y_AXIS));
         descriptionPanel.setBackground(Color.white);
         
-        labels.add(new JLabel(nameDish));
-        labels.add(new JLabel(descriptionDish));
-        labels.add(new JLabel("€ " + String.format( "%.2f", priceDish)));
+        labels.add(new JLabel(dish.getNameDish()));
+        labels.add(new JLabel(dish.getDescriptionDish()));
+        labels.add(new JLabel("€ " + String.format( "%.2f", dish.getpriceDish())));
         
         for(JLabel label : labels)
         {
@@ -223,10 +224,11 @@ public class SysteemUI extends JFrame
         
         JPanel orderPanel = new JPanel();
         orderPanel.setBackground(Color.white);
-        orderPanel.add(new JSpinner(new SpinnerNumberModel(0, 0, 100, 1)));
+        JSpinner amountSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
+        orderPanel.add(amountSpinner);
         JButton addButton = new JButton("Voeg toe");
         addButton.addActionListener((ActionEvent e) -> {
-            
+            DishOrder newDish = new DishOrder(1, dish, (int)amountSpinner.getValue());
         });
         
         orderPanel.add(addButton);
