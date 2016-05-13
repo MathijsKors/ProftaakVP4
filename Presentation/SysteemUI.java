@@ -18,6 +18,8 @@ import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 /**
  *
  * @author Mathijs, Dennis
@@ -49,8 +51,8 @@ public class SysteemUI extends JFrame
         
         //Menu with categories
         menuTabbedPane = new JTabbedPane();
-        menuTabbedPane.add("Voorgerechten", new JScrollPane(new AppetizerPanel(), JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
-        menuTabbedPane.add("HoofdGerechten", new JScrollPane(new MainCoursePanel()));
+        menuTabbedPane.add("Voorgerechten", new JScrollPane(new AppetizerPanel()));
+        menuTabbedPane.add("Hoofdgerechten", new JScrollPane(new MainCoursePanel()));
         menuTabbedPane.add("Nagerechten", new JScrollPane(new DessertPanel()));
         menuTabbedPane.add("Dranken", new JScrollPane(new DrinkPanel()));
         frame.add(menuTabbedPane, BorderLayout.CENTER);
@@ -149,7 +151,11 @@ public class SysteemUI extends JFrame
     {
         public MainCoursePanel()
         {
-            setBackground(Color.blue);
+            //Display every main course
+            for(Dish dish : dishManager.findDishes("MainCourse"))
+            {
+                add(createDishPanel(dish.getNameDish(), dish.getDescriptionDish(), dish.getpriceDish()));
+            }
         }
     }
     
@@ -157,7 +163,11 @@ public class SysteemUI extends JFrame
     {
         public DessertPanel()
         {
-            setBackground(Color.green);
+            //Display every dessert
+            for(Dish dish : dishManager.findDishes("Dessert"))
+            {
+                add(createDishPanel(dish.getNameDish(), dish.getDescriptionDish(), dish.getpriceDish()));
+            }
         }
     }
     
@@ -165,7 +175,11 @@ public class SysteemUI extends JFrame
     {
         public DrinkPanel()
         {
-            setBackground(Color.yellow);
+            //Display every drink
+            for(Dish dish : dishManager.findDishes("Drink"))
+            {
+                add(createDishPanel(dish.getNameDish(), dish.getDescriptionDish(), dish.getpriceDish()));
+            }
         }
     }
     
@@ -188,11 +202,15 @@ public class SysteemUI extends JFrame
         JPanel dishPanel = new JPanel();
         ArrayList<JLabel> labels = new ArrayList<>();
         
-        dishPanel.setBackground(Color.white);
         dishPanel.setPreferredSize(new Dimension(300, 400));
         
         //Everything will be displayed vertically
-        dishPanel.setLayout(new BoxLayout(dishPanel, BoxLayout.Y_AXIS));
+        dishPanel.setLayout(new BorderLayout());
+        
+        JPanel descriptionPanel = new JPanel();
+        descriptionPanel.setLayout(new BoxLayout(descriptionPanel, BoxLayout.Y_AXIS));
+        descriptionPanel.setBackground(Color.white);
+        
         labels.add(new JLabel(nameDish));
         labels.add(new JLabel(descriptionDish));
         labels.add(new JLabel("€ " + String.format( "%.2f", priceDish)));
@@ -200,8 +218,21 @@ public class SysteemUI extends JFrame
         for(JLabel label : labels)
         {
             label.setAlignmentX(CENTER_ALIGNMENT);
-            dishPanel.add(label);
+            descriptionPanel.add(label);
         }
+        
+        JPanel orderPanel = new JPanel();
+        orderPanel.setBackground(Color.white);
+        orderPanel.add(new JSpinner(new SpinnerNumberModel(0, 0, 100, 1)));
+        JButton addButton = new JButton("Voeg toe");
+        addButton.addActionListener((ActionEvent e) -> {
+            
+        });
+        
+        orderPanel.add(addButton);
+        
+        dishPanel.add(descriptionPanel, BorderLayout.CENTER);
+        dishPanel.add(orderPanel, BorderLayout.SOUTH);
         
         return dishPanel;
     }

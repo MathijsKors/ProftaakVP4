@@ -20,18 +20,12 @@ public class DishDAO
         dishList.add(dish1);
         Dish dish2 = new Dish("Bruschetta", "Appetizer", "Italiaans brood met tomaten, olijfolie, kruiden.", 4.40);
         dishList.add(dish2);
-        Dish dish3 = new Dish("Portie Olijven", "Appetizer", "Portie Olijven", 3.00);
-        dishList.add(dish1);
-        Dish dish4 = new Dish("Bruschetta", "Appetizer", "Italiaans brood met tomaten, olijfolie, kruiden.", 4.40);
-        dishList.add(dish2);
-        Dish dish5 = new Dish("Portie Olijven", "Appetizer", "Portie Olijven", 3.00);
-        dishList.add(dish1);
-        Dish dish6 = new Dish("Bruschetta", "Appetizer", "Italiaans brood met tomaten, olijfolie, kruiden.", 4.40);
-        dishList.add(dish2);
-        Dish dish7 = new Dish("Portie Olijven", "Appetizer", "Portie Olijven", 3.00);
-        dishList.add(dish1);
-        Dish dish8 = new Dish("Bruschetta", "Appetizer", "Italiaans brood met tomaten, olijfolie, kruiden.", 4.40);
-        dishList.add(dish2);
+        Dish dish3 = new Dish("Scaloppa Gorgonzola", "MainCourse", "Plakjes varkenshaas met gorgonzola", 15.75);
+        dishList.add(dish3);
+        Dish dish4 = new Dish("Penne Fantasia", "MainCourse", "Tomatensaus met spek, paprika, champignons, pijnboompitten, spinazie en room", 11.50);
+        dishList.add(dish4);
+        Dish dish5 = new Dish("Chocolade-ijs", "Dessert", "Chocolade-ijs van verschillende soorten chocola.", 5.50);
+        dishList.add(dish5);
     }
     
     public ArrayList<Dish> getDishListBySort(String sort)
