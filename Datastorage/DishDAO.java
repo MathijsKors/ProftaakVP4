@@ -20,6 +20,18 @@ public class DishDAO
         dishList.add(dish1);
         Dish dish2 = new Dish("Bruschetta", "Appetizer", "Italiaans brood met tomaten, olijfolie, kruiden.", 4.40);
         dishList.add(dish2);
+        Dish dish3 = new Dish("Portie Olijven", "Appetizer", "Portie Olijven", 3.00);
+        dishList.add(dish1);
+        Dish dish4 = new Dish("Bruschetta", "Appetizer", "Italiaans brood met tomaten, olijfolie, kruiden.", 4.40);
+        dishList.add(dish2);
+        Dish dish5 = new Dish("Portie Olijven", "Appetizer", "Portie Olijven", 3.00);
+        dishList.add(dish1);
+        Dish dish6 = new Dish("Bruschetta", "Appetizer", "Italiaans brood met tomaten, olijfolie, kruiden.", 4.40);
+        dishList.add(dish2);
+        Dish dish7 = new Dish("Portie Olijven", "Appetizer", "Portie Olijven", 3.00);
+        dishList.add(dish1);
+        Dish dish8 = new Dish("Bruschetta", "Appetizer", "Italiaans brood met tomaten, olijfolie, kruiden.", 4.40);
+        dishList.add(dish2);
     }
     
     public ArrayList<Dish> getDishListBySort(String sort)

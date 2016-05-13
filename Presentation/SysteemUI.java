@@ -15,9 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import Manager.UIManager;
 import java.awt.Dimension;
-import java.text.DecimalFormat;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 /**
  *
  * @author Mathijs, Dennis
@@ -49,10 +49,10 @@ public class SysteemUI extends JFrame
         
         //Menu with categories
         menuTabbedPane = new JTabbedPane();
-        menuTabbedPane.add("Voorgerechten", new AppetizerPanel());
-        menuTabbedPane.add("HoofdGerechten", new MainCoursePanel());
-        menuTabbedPane.add("Nagerechten", new DessertPanel());
-        menuTabbedPane.add("Dranken", new DrinkPanel());
+        menuTabbedPane.add("Voorgerechten", new JScrollPane(new AppetizerPanel(), JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
+        menuTabbedPane.add("HoofdGerechten", new JScrollPane(new MainCoursePanel()));
+        menuTabbedPane.add("Nagerechten", new JScrollPane(new DessertPanel()));
+        menuTabbedPane.add("Dranken", new JScrollPane(new DrinkPanel()));
         frame.add(menuTabbedPane, BorderLayout.CENTER);
         
         //Menu with list of ordered items
