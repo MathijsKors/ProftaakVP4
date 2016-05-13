@@ -52,6 +52,12 @@ public class SysteemUI extends JFrame
         add(orderedItemPanel, BorderLayout.CENTER);
         orderedItemPanel.setVisible(false);
         
+        //Menu with receipt
+        receiptPanel = new JPanel();
+        panelList.add(receiptPanel);
+        add(receiptPanel, BorderLayout.CENTER);
+        receiptPanel.setVisible(false);
+        
         frame.pack();
         frame.setExtendedState(Frame.MAXIMIZED_BOTH);
     }
