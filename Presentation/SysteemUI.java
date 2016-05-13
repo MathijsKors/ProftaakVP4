@@ -1,5 +1,7 @@
 package Presentation;
 
+import Domain.Dish;
+import Manager.DishManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Frame;
@@ -12,6 +14,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import Manager.UIManager;
+import java.awt.Dimension;
+import java.text.DecimalFormat;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 /**
  *
  * @author Mathijs, Dennis
@@ -23,6 +29,7 @@ public class SysteemUI extends JFrame
     private ArrayList<JPanel> panelList;
     private JTabbedPane menuTabbedPane;
     private UIManager manager;
+    private DishManager dishManager;
     
     public SysteemUI()
     {
@@ -34,6 +41,8 @@ public class SysteemUI extends JFrame
         frame.setTitle("De Hartige Hap");
         
         panelList = new ArrayList<>();
+        
+        dishManager = new DishManager();
         
         //Navigation bar with buttons
         frame.add(new NavBarPanel(), BorderLayout.NORTH);
@@ -128,7 +137,11 @@ public class SysteemUI extends JFrame
     {
         public AppetizerPanel()
         {
-            setBackground(Color.red);
+            //Display every appetizer
+            for(Dish dish : dishManager.findDishes("Appetizer"))
+            {
+                add(createDishPanel(dish.getNameDish(), dish.getDescriptionDish(), dish.getpriceDish()));
+            }
         }
     }
     
@@ -168,5 +181,28 @@ public class SysteemUI extends JFrame
         }
         menuTabbedPane.setVisible(false);
         panel.setVisible(true);
+    }
+    
+    public JPanel createDishPanel(String nameDish, String descriptionDish, double priceDish)
+    {
+        JPanel dishPanel = new JPanel();
+        ArrayList<JLabel> labels = new ArrayList<>();
+        
+        dishPanel.setBackground(Color.white);
+        dishPanel.setPreferredSize(new Dimension(300, 400));
+        
+        //Everything will be displayed vertically
+        dishPanel.setLayout(new BoxLayout(dishPanel, BoxLayout.Y_AXIS));
+        labels.add(new JLabel(nameDish));
+        labels.add(new JLabel(descriptionDish));
+        labels.add(new JLabel("€ " + String.format( "%.2f", priceDish)));
+        
+        for(JLabel label : labels)
+        {
+            label.setAlignmentX(CENTER_ALIGNMENT);
+            dishPanel.add(label);
+        }
+        
+        return dishPanel;
     }
 }
